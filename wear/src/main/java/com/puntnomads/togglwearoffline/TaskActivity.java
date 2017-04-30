@@ -12,7 +12,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class ProjectActivity extends Activity {
+public class TaskActivity extends Activity {
 
     private Button startButton;
     private Button stopButton;
@@ -26,8 +26,8 @@ public class ProjectActivity extends Activity {
 
         myDatabase = new DatabaseHelper(this);
         Intent intent = getIntent();
-        final String project = intent.getStringExtra(TaskList.EXTRA_PROJECT);
-        final String task = intent.getStringExtra(TaskList.EXTRA_TASK);
+        final String project = intent.getStringExtra("project");
+        final String task = intent.getStringExtra("task");
         startButton = (Button) findViewById(R.id.start_button);
         stopButton = (Button) findViewById(R.id.stop_button);
         loadPreferences();

@@ -25,21 +25,27 @@ public class MainActivity extends Activity {
 
     private Button recordButton;
     private Button sendButton;
-
+    private Button modifyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
         recordButton = (Button) findViewById(R.id.record_button);
+        modifyButton = (Button) findViewById(R.id.modify_button);
         sendButton = (Button) findViewById(R.id.send_button);
         recordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ProjectsList.class);
+                intent.putExtra("activity", 1);
+                startActivity(intent);
+            }
+        });
+        modifyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ModifyActivity.class);
                 startActivity(intent);
             }
         });

@@ -2,6 +2,7 @@ package com.puntnomads.togglwearoffline;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +21,16 @@ import java.util.List;
 
 public class ProjectsList extends ListActivity {
 
-    public final static String EXTRA_PROJECT = "project";
-    private static final String[] items={"Full Stack", "Android", "Body",
-            "Household", "Islam", "Mind", "NodeJS", "Web Front End", "PHP", "Computer Science", "Programming"};
-    // make sure the list_tasks is sorted alphabetically.
+    private static String[] items;
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.list_projects);
+
+        SharedPreferences prefs = getSharedPreferences("projects", 0);
+        String projectsString = prefs.getString("projects", "");
+        items = projectsString.split(",");
 
         Arrays.sort(items);
 
@@ -60,10 +62,25 @@ public class ProjectsList extends ListActivity {
     @Override
     public void onListItemClick(ListView parent, View v, int position,
                                 long id) {
-        //selection.setText(items[position]);
-        Intent intent = new Intent(this, TaskList.class);
+        Intent intent;
         String project = items[position];
-        intent.putExtra(EXTRA_PROJECT, project);
+        int num = getIntent().getIntExtra("num",5);
+        switch (num){
+            case 0:
+                intent = new Intent(ProjectsList.this, KeyboardActivity.class);
+                break;
+            case 1:
+                intent = new Intent(ProjectsList.this, RemoveActivity.class);
+                intent.putExtra("name", "projects");
+                break;
+            case 2:
+                intent = new Intent(ProjectsList.this, TaskList.class);
+                intent.putExtra("num", 2);
+                break;
+            default:
+                intent = new Intent(ProjectsList.this, TaskList.class);
+        }
+        intent.putExtra("list", project);
         startActivity(intent);
 
     }

@@ -77,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
                 projectNames.add(data.getString("projectname"+x));
                 taskNames.add(data.getString("taskname"+x));
                 startNames.add(data.getString("startname"+x));
-                startTimes.add(Integer.parseInt(data.getString("starttime"+x)));
-                stopTimes.add(Integer.parseInt(data.getString("stoptime"+x)));
+                startTimes.add(data.getInt("starttime"+x));
+                stopTimes.add(data.getInt("stoptime"+x));
             }
             if(projectNames.size()==numbers){
                 displayInfo();
